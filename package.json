@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "concurrently \"next build\" \"cd api-riot && nodemon server\"",
     "start": "next start",
     "lint": "next lint"
   },
@@ -37,7 +37,9 @@
     "@radix-ui/react-toggle": "^1.1.0",
     "@radix-ui/react-toggle-group": "^1.1.0",
     "@radix-ui/react-tooltip": "^1.1.2",
+    "@tanstack/react-query": "^5.51.24",
     "axios": "^1.7.4",
+    "body-parser": "^1.20.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",
@@ -47,6 +49,7 @@
     "embla-carousel-react": "^8.1.8",
     "express": "^4.19.2",
     "input-otp": "^1.2.4",
+    "js-cookie": "^3.0.5",
     "lucide-react": "^0.428.0",
     "next": "14.2.5",
     "next-themes": "^0.3.0",
@@ -54,6 +57,7 @@
     "react-day-picker": "^8.10.1",
     "react-dom": "^18",
     "react-hook-form": "^7.52.2",
+    "react-query": "^3.39.3",
     "react-resizable-panels": "^2.1.0",
     "recharts": "^2.12.7",
     "sonner": "^1.5.0",
@@ -63,6 +67,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@types/js-cookie": "^3.0.6",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

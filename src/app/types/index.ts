@@ -1,7 +1,14 @@
-export interface Account {
+export interface UserAccount {
   puuid: string;
-  gameName: string;
-  tagLine: string;
-  platformId: string;
-  accountId: string;
+  gameName: any;
+  tagLine: any;
+  riotId: string;
+  error?: string;
+}
+
+export interface PuuidDataAccountProps {
+  puuid: string;
+  gameName: any;
+  tagLine: any;
+  error?: string;
 }

@@ -1,7 +1,14 @@
 const express = require("express");
-const { searchAccoutGame } = require("../models/newModels");
+const {
+  searchChampionsLol,
+  searchMasteryChampions,
+  searchPuuid,
+} = require("../models/newModels");
 const router = express.Router();
 
-router.get("/search/:gameName/:tagLine", searchAccoutGame);
+router.get("/account/:gameName/:tagLine", searchPuuid);
+// router.get("/champions", search);
+router.get("/masteryChampionsUser/:puuid", searchMasteryChampions);
+router.get("/champions", searchChampionsLol);
 
 module.exports = router;
