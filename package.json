@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "concurrently \"next build\" \"cd api-riot && nodemon server\"",
+    "build": "next build && cd api-riot && nodemon server",
     "start": "next start",
     "lint": "next lint"
   },
