@@ -1,6 +1,5 @@
 "use client";
 import { createContext, useEffect, useState } from "react";
-import axios from "axios";
 import Cookies from "js-cookie";
 import { PuuidDataAccountProps, UserAccount } from "../types";
 import { useRouter } from "next/navigation";
@@ -16,10 +15,14 @@ export const LolProvider = ({ children }: { children: React.ReactNode }) => {
 
   async function searchPuuid(gameName: string, tagLine: string) {
     try {
-      const response = await axios.get(
-        `${URL_API}/account/${gameName}/${tagLine}`
+      const response = await fetch(
+        `${URL_API}/account/${gameName}/${tagLine}`,
+        {
+          cache: "no-cache",
+          method: "GET",
+        }
       );
-      const data = response.data;
+      const data = response.json();
       setDataPuuid(data);
       return data;
     } catch (error: any) {
@@ -33,59 +36,62 @@ export const LolProvider = ({ children }: { children: React.ReactNode }) => {
 
   async function allChampions() {
     try {
-      const res = await axios.get(
-        `https://ddragon.leagueoflegends.com/cdn/14.16.1/data/pt_BR/champion.json`
+      const res = await fetch(
+        `https://ddragon.leagueoflegends.com/cdn/14.16.1/data/pt_BR/champion.json`,
+        {
+          method: "GET",
+        }
       );
-      if (res.status === 200) {
-        const data = await res.data;
-        setChampions(data);
-      }
+      const data = await res.json();
+      return data;
     } catch (err) {
       console.log(err);
     }
   }
 
-  useEffect(() => {
-    if (champions.length === 0) {
-      allChampions();
-    }
-  }, [champions]);
+  // useEffect(() => {
+  //   if (champions.length === 0) {
+  //     allChampions();
+  //   }
+  // }, [champions]);
 
   async function allProfileIcons() {
     try {
-      const res = await axios.get(
-        `https://ddragon.leagueoflegends.com/cdn/14.16.1/data/pt_BR/profileicon.json`
+      const res = await fetch(
+        `https://ddragon.leagueoflegends.com/cdn/14.16.1/data/pt_BR/profileicon.json`,
+        {
+          method: "GET",
+        }
       );
-      if (res.status === 200) {
-        const data = await res.data;
-        setProfileIcons(data);
-      }
+      const data = res.json();
+      return data;
     } catch (err) {
       console.log(err);
     }
   }
 
-  useEffect(() => {
-    if (profileIcons.length === 0) {
-      allProfileIcons();
-    }
-  }, [profileIcons]);
+  // useEffect(() => {
+  //   if (profileIcons.length === 0) {
+  //     allProfileIcons();
+  //   }
+  // }, [profileIcons]);
 
   const DataUserPuuid = async (
     gameName: any,
     tagLine: any
   ): Promise<PuuidDataAccountProps> => {
     try {
-      const response = await axios.get(
-        `${URL_API}/account/${gameName}/${tagLine}`
+      const response = await fetch(
+        `${URL_API}/account/${gameName}/${tagLine}`,
+        { cache: "no-cache", method: "GET" }
       );
-      if (response.data.puuid && response.status === 200) {
-        Cookies.set("puuid", response.data.puuid);
+      const data = await response.json();
+      if (data.puuid && response.status === 200) {
+        Cookies.set("puuid", data.puuid);
       }
-      return response.data;
+      return data;
     } catch (error: any) {
       if (error.response && error.response.status === 404) {
-        router.push("/not-found");
         return {
           error: "User not found",
           puuid: "",
@@ -99,10 +105,12 @@ export const LolProvider = ({ children }: { children: React.ReactNode }) => {
 
   async function masteryChampionsUser(puuid: string) {
     try {
-      const response = await axios.get(
-        `${URL_API}/masteryChampionsUser/${puuid}`
-      );
-      return response.data;
+      const response = await fetch(`${URL_API}/masteryChampionsUser/${puuid}`, {
+        cache: "no-cache",
+        method: "GET",
+      });
+      const data = await response.json();
+      return data;
     } catch (error: any) {
       if (error.response && error.response.status === 404) {
         return { error: "User not found" };
@@ -111,6 +119,24 @@ export const LolProvider = ({ children }: { children: React.ReactNode }) => {
       return { error: "An error occurred" };
     }
   }
+
+  async function searchRiotId(puuid: string) {
+    try {
+      const response = await fetch(`${URL_API}/riotId/${puuid}/`, {
+        cache: "no-cache",
+        method: "GET",
+      });
+      const data = response.json();
+      return data;
+    } catch (error: any) {
+      if (error.response && error.response.status === 404) {
+        return { error: "Search Riot id: User not found" };
+      }
+      console.log(error);
+      return { error: "Search Riot id: An error occurred" };
+    }
+  }
+
   return (
     <LolContext.Provider
       value={{
@@ -122,6 +148,9 @@ export const LolProvider = ({ children }: { children: React.ReactNode }) => {
         accountUser,
         DataUserPuuid,
         masteryChampionsUser,
+        allChampions,
+        allProfileIcons,
+        searchRiotId,
       }}
     >
       {children}
