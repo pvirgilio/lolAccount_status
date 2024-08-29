@@ -4,15 +4,15 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
   const pathname = req.nextUrl.pathname;
-  const match = pathname.match(/\/api\/account\/([^\/]+)\/([^\/]+)/);
+  const match = pathname.match(/\/api\/account\/masteryChamps\/([^\/]+)/);
 
   if (!match) {
     return NextResponse.json({ error: "Invalid URL format" }, { status: 400 });
   }
 
-  const [, gameName, tagLine] = match;
+  const [, puuid] = match;
 
-  if (!gameName || !tagLine) {
+  if (!puuid) {
     return NextResponse.json(
       { error: "Missing gameName or tagLine" },
       { status: 400 }
@@ -20,7 +20,7 @@ export async function GET(req: NextRequest) {
   }
   try {
     const response = await axios.get(
-      `https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${gameName}/${tagLine}?api_key=${process.env.RIOT_API_KEY}`,
+      `https://br1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-puuid/${puuid}?api_key=${process.env.RIOT_API_KEY}`,
       {
         headers: {
           "User-Agent":

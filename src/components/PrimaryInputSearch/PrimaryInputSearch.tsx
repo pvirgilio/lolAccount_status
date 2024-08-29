@@ -36,10 +36,10 @@ export const PrimaryInputSearch = () => {
   return (
     <form
       onSubmit={handleSubmit(handleInputSubmit)}
-      className="w-[500px] flex flex-col gap-10"
+      className="w-[600px] flex flex-col gap-10 bg-gray-700 p-20 rounded-xl"
     >
       <h1 className="text-white font-bold text-3xl text-center">
-        LOL_ACCOUNTS
+        LOL_ACCOUNTS_BR
       </h1>
       <Input
         placeholder="Digite account#tag"

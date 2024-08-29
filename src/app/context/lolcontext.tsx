@@ -11,12 +11,12 @@ export const LolProvider = ({ children }: { children: React.ReactNode }) => {
   const [champions, setChampions] = useState<any[]>([]);
   const [profileIcons, setProfileIcons] = useState<any[]>([]);
   const [dataPuuid, setDataPuuid] = useState<any>({});
-  const URL_API = "http://localhost:4000";
+  const URL_API = "http://localhost:3000";
 
   async function searchPuuid(gameName: string, tagLine: string) {
     try {
       const response = await fetch(
-        `${URL_API}/account/${gameName}/${tagLine}`,
+        `${URL_API}/api/account/${gameName}/${tagLine}`,
         {
           cache: "no-cache",
           method: "GET",
@@ -82,7 +82,7 @@ export const LolProvider = ({ children }: { children: React.ReactNode }) => {
   ): Promise<PuuidDataAccountProps> => {
     try {
       const response = await fetch(
-        `${URL_API}/account/${gameName}/${tagLine}`,
+        `${URL_API}/api/account/${gameName}/${tagLine}`,
         { cache: "no-cache", method: "GET" }
       );
       const data = await response.json();
@@ -105,10 +105,13 @@ export const LolProvider = ({ children }: { children: React.ReactNode }) => {
 
   async function masteryChampionsUser(puuid: string) {
     try {
-      const response = await fetch(`${URL_API}/masteryChampionsUser/${puuid}`, {
-        cache: "no-cache",
-        method: "GET",
-      });
+      const response = await fetch(
+        `${URL_API}/api/account/masteryChamps/${puuid}`,
+        {
+          cache: "no-cache",
+          method: "GET",
+        }
+      );
       const data = await response.json();
       return data;
     } catch (error: any) {
@@ -122,7 +125,7 @@ export const LolProvider = ({ children }: { children: React.ReactNode }) => {
 
   async function searchRiotId(puuid: string) {
     try {
-      const response = await fetch(`${URL_API}/riotId/${puuid}/`, {
+      const response = await fetch(`${URL_API}/api/account/riotId/${puuid}/`, {
         cache: "no-cache",
         method: "GET",
       });

@@ -19,7 +19,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">
-      <body className={clsx(inter.className, "bg-gray-900")}>
+      <body
+        className={clsx(inter.className, "w-full h-full")}
+        style={{
+          backgroundImage:
+            "url('https://pt.egamersworld.com/_next/image?url=https%3A%2F%2Fegamersworld.com%2Fuploads%2Fblog%2F1%2F17%2F1709721302363_1709721302363.jpg&w=1920&q=75')",
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
+        }}
+      >
         <LolProvider>{children}</LolProvider>
       </body>
     </html>
