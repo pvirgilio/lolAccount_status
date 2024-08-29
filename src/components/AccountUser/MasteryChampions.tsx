@@ -7,7 +7,7 @@ export function MasteryChampions({
   getChampionInfo,
 }: any) {
   return (
-    <section className="w-full container mt-20 flex flex-col gap-10">
+    <section className="w-full mt-20 flex flex-col gap-10">
       <h2 className="text-3xl text-white">Campeões mais jogados</h2>
       <div className="grid grid-cols-5">
         {masteryChampions.slice(0, 5).map((champion: any) => {

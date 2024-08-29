@@ -11,17 +11,13 @@ export const LolProvider = ({ children }: { children: React.ReactNode }) => {
   const [champions, setChampions] = useState<any[]>([]);
   const [profileIcons, setProfileIcons] = useState<any[]>([]);
   const [dataPuuid, setDataPuuid] = useState<any>({});
-  const URL_API = "http://localhost:3000";
 
   async function searchPuuid(gameName: string, tagLine: string) {
     try {
-      const response = await fetch(
-        `${URL_API}/api/account/${gameName}/${tagLine}`,
-        {
-          cache: "no-cache",
-          method: "GET",
-        }
-      );
+      const response = await fetch(`/api/account/${gameName}/${tagLine}`, {
+        cache: "no-cache",
+        method: "GET",
+      });
       const data = response.json();
       setDataPuuid(data);
       return data;
@@ -81,10 +77,10 @@ export const LolProvider = ({ children }: { children: React.ReactNode }) => {
     tagLine: any
   ): Promise<PuuidDataAccountProps> => {
     try {
-      const response = await fetch(
-        `${URL_API}/api/account/${gameName}/${tagLine}`,
-        { cache: "no-cache", method: "GET" }
-      );
+      const response = await fetch(`/api/account/${gameName}/${tagLine}`, {
+        cache: "no-cache",
+        method: "GET",
+      });
       const data = await response.json();
       if (data.puuid && response.status === 200) {
         Cookies.set("puuid", data.puuid);
@@ -105,13 +101,10 @@ export const LolProvider = ({ children }: { children: React.ReactNode }) => {
 
   async function masteryChampionsUser(puuid: string) {
     try {
-      const response = await fetch(
-        `${URL_API}/api/account/masteryChamps/${puuid}`,
-        {
-          cache: "no-cache",
-          method: "GET",
-        }
-      );
+      const response = await fetch(`/api/account/masteryChamps/${puuid}`, {
+        cache: "no-cache",
+        method: "GET",
+      });
       const data = await response.json();
       return data;
     } catch (error: any) {
@@ -125,7 +118,7 @@ export const LolProvider = ({ children }: { children: React.ReactNode }) => {
 
   async function searchRiotId(puuid: string) {
     try {
-      const response = await fetch(`${URL_API}/api/account/riotId/${puuid}/`, {
+      const response = await fetch(`/api/account/riotId/${puuid}/`, {
         cache: "no-cache",
         method: "GET",
       });

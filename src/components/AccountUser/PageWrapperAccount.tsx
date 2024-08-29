@@ -81,7 +81,7 @@ const PageWrapperAccount: React.FC = () => {
   }
 
   return (
-    <>
+    <section className="container w-full h-full flex flex-col backdrop-blur-sm">
       <AccountUserPage
         accountUserData={accountUserData}
         getProfileIconUser={getProfileIconUser}
@@ -91,7 +91,7 @@ const PageWrapperAccount: React.FC = () => {
         masteryChampions={masteryChampionsData}
         getChampionInfo={getChampionInfo}
       />
-    </>
+    </section>
   );
 };
 

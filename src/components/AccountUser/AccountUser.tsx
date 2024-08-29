@@ -18,7 +18,7 @@ export function AccountUserPage({ accountUserData }: any) {
   } = accountUserData;
 
   return (
-    <section className="container w-full h-full flex items-center mt-40">
+    <section className=" w-full flex items-center mt-40">
       <div className="text-white flex items-start gap-5">
         <div key={riotIdData.profileIconId} className="flex flex-col gap-2">
           <Image

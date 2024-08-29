@@ -5,7 +5,7 @@ import React from "react";
 
 export default function AccountUserLol() {
   return (
-    <main className="w-full h-full">
+    <main className="w-full h-screen">
       <PageWrapperAccount />
     </main>
   );
